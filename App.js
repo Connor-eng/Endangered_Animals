@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import ReactTooltip from "react-tooltip";
 
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import MapChart from "./MapChart";
 
