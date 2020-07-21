@@ -15,10 +15,16 @@ const geoUrl =
 
 
 const MapChart = ({ setTooltipContent }) => {
-  	// State for popup
+  	// State for displaying popup
 	const [show, setShow] = useState(false)
   	const handleClose = () => setShow(false);
-  	const handleShow = () => setShow(true);
+	const handleShow = () => setShow(true);
+	  
+	// State for popup contents
+	const [popupCountry, setPopupCountry] = useState("")
+	const handlePopupCountry = (countryName) => setPopupCountry(countryName)
+
+
 
 
   	// Render Function
@@ -26,7 +32,7 @@ const MapChart = ({ setTooltipContent }) => {
 	<>
 		<Modal show={show} onHide={handleClose}>
 			<Modal.Header closeButton>
-				<Modal.Title>Modal heading</Modal.Title>
+				<Modal.Title>{popupCountry}</Modal.Title>
 			</Modal.Header>
 
 			<Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
@@ -53,7 +59,9 @@ const MapChart = ({ setTooltipContent }) => {
 
 						// Show popup
 						onClick={() => {
-							handleShow()
+							const { NAME } = geo.properties;
+							handlePopupCountry(NAME)	// Init Popup header with the country name
+							handleShow()				// Display popup
 						}}
 
 						// Hover
