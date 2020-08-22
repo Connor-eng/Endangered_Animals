@@ -112,12 +112,15 @@ const MapChart = ({ setTooltipContent }) => {
       			<Graticule stroke="#DDD" />
 				<Geographies geography={geoUrl}>
 					{({ geographies }) =>
-					geographies.map(geo => (
-					//const isHighlighted = highlighted.indexOf(geo.properties.ISO_A3) !== -1;
+					geographies.map(geo => {
+					
+					const isHighlighted = highlighted.indexOf(geo.properties.ISO_A3) !== -1;
+					
+					return(
 					<Geography
 						key={geo.rsmKey}
 						geography={geo}
-						//fill={isHighlighted ? "url('#lines')" : "#F6F0E9"}
+						fill={isHighlighted ? "url('#lines')" : "#F6F0E9"}
 
 						// Show popup
 						onClick={() => {
@@ -153,7 +156,8 @@ const MapChart = ({ setTooltipContent }) => {
 							}
 						}}
 					/>
-				))}
+					);
+					})}
 				
 				</Geographies>
 				<Line coordinates={generateCircle(0)} stroke="#E94F4F" strokeWidth={2} />
