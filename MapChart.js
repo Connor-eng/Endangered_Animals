@@ -112,8 +112,8 @@ const MapChart = ({ setTooltipContent }) => {
       			<Graticule stroke="#DDD" />
 				<Geographies geography={geoUrl}>
 					{({ geographies }) =>
-					geographies.map(geo => {
-					const isHighlighted = highlighted.indexOf(geo.properties.ISO_A3) !== -1;
+					geographies.map(geo => (
+					//const isHighlighted = highlighted.indexOf(geo.properties.ISO_A3) !== -1;
 					<Geography
 						key={geo.rsmKey}
 						geography={geo}
@@ -153,7 +153,7 @@ const MapChart = ({ setTooltipContent }) => {
 							}
 						}}
 					/>
-				)}
+				))}
 				
 				</Geographies>
 				<Line coordinates={generateCircle(0)} stroke="#E94F4F" strokeWidth={2} />
