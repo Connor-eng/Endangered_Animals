@@ -9,8 +9,20 @@ import MapChart from "./MapChart";
 
 function App() {
 	const [content, setContent] = useState("");
+	const myStyle = {
+		backgroundColor: "#D5EEFC",
+		backgroundSize: 'cover'
+	};
+	const wordStyle = {
+		fontFamily: "Lucida Console",
+		textAlign: 'center',
+		paddingTop: '90px',
+		fontSize: '28px',
+		lineHeight: '50%'
+	}
 	return (
-	  <div>
+	  <div style={myStyle}>
+		<h1 style={wordStyle}>Endangered Animals Around the World</h1>
 		<MapChart setTooltipContent={setContent} />
 		<ReactTooltip>{content}</ReactTooltip>
 	  </div>

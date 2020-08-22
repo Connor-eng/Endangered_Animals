@@ -97,19 +97,19 @@ const MapChart = ({ setTooltipContent }) => {
 			</Modal.Footer>
 		</Modal>
 
-		<ComposableMap data-tip="" projectionConfig={{ scale: 200 }}>
-			<ZoomableGroup>
+		<ComposableMap data-tip="" projectionConfig={{ scale: 145 }}>
+			
 				<PatternLines
         			id="lines"
         			height={6}
         			width={6}
         			stroke="#776865"
         			strokeWidth={1}
-        			background="#F6F0E9"
+        			background="#E9E2C1"
         			orientation={["diagonal"]}
       			/>
-				<Sphere stroke="#DDD" />
-      			<Graticule stroke="#DDD" />
+				<Sphere stroke="#717273 " />
+      			<Graticule stroke="#717273 " />
 				<Geographies geography={geoUrl}>
 					{({ geographies }) =>
 					geographies.map(geo => {
@@ -120,8 +120,7 @@ const MapChart = ({ setTooltipContent }) => {
 					<Geography
 						key={geo.rsmKey}
 						geography={geo}
-						fill={isHighlighted ? "url('#lines')" : "#F6F0E9"}
-
+						fill={isHighlighted ? "url('#lines')" : "#E9E2C1"}
 						// Show popup
 						onClick={() => {
 							const { NAME } = geo.properties;
@@ -142,16 +141,12 @@ const MapChart = ({ setTooltipContent }) => {
 
 						// Map style
 						style={{
-							default: {
-							fill: "#D6D6DA",
-							outline: "none"
-							},
 							hover: {
-							fill: "#F53",
+							fill: "#86C855",
 							outline: "none"
 							},
 							pressed: {
-							fill: "#E42",
+							fill: "#86C855",
 							outline: "none"
 							}
 						}}
@@ -161,7 +156,7 @@ const MapChart = ({ setTooltipContent }) => {
 				
 				</Geographies>
 				<Line coordinates={generateCircle(0)} stroke="#E94F4F" strokeWidth={2} />
-			</ZoomableGroup>
+			
 		</ComposableMap>
 	</>
 	);
