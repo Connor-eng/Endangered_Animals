@@ -111,6 +111,8 @@ const MapChart = ({ setTooltipContent }) => {
 						key={geo.rsmKey}
 						geography={geo}
 						fill={isHighlighted ? "url('#lines')" : "#E9E2C1"}
+						stroke="gray"
+						strokeWidth={.8}
 						// Show popup
 						onClick={() => {
 							const { NAME } = geo.properties;
