@@ -85,16 +85,6 @@ const MapChart = ({ setTooltipContent }) => {
 			</Modal.Header>
 
 			<Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-
-			<Modal.Footer>
-				<Button variant="secondary" onClick={handleClose}>
-				Close
-				</Button>
-
-				<Button variant="primary" onClick={handleClose}>
-				Save Changes
-				</Button>
-			</Modal.Footer>
 		</Modal>
 
 		<ComposableMap data-tip="" projectionConfig={{ scale: 145 }}>

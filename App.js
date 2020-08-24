@@ -14,11 +14,11 @@ function App() {
 		backgroundSize: 'cover'
 	};
 	const wordStyle = {
-		fontFamily: "Lucida Console",
+		fontFamily: "'Candara', 'Calibri', 'Courier', 'serif'",
 		textAlign: 'center',
 		paddingTop: '90px',
-		fontSize: '28px',
-		lineHeight: '50%'
+		fontSize: '60px',
+		lineHeight: '85%'
 	}
 	return (
 	  <div style={myStyle}>
