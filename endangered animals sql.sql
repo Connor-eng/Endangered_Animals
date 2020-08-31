@@ -2,31 +2,13 @@ DROP DATABASE endangered_animals;
 CREATE DATABASE endangered_animals;
 USE endangered_animals;
 
-CREATE TABLE animals(
+
+
+CREATE TABLE habitat(
    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
    common_name VARCHAR(50),
-   scientific_name VARCHAR(50),
-   diet VARCHAR(50),
-   average_weight INT,
-   color VARCHAR(50),
-   behavior VARCHAR(50),
-   life_expectancy INT,
-   animals_habitat VARCHAR(50),
-   animals_region VARCHAR(50),
-   FOREIGN KEY(animal_habitat) REFERENCES habitat(id)  ON DELETE CASCADE,
-   FOREIGN KEY(animal_region) REFERENCES region(id)  ON DELETE CASCADE
-);
-
-
-CREATE TABLE status(
-  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  classification VARCHAR(50),
-  population_current INT,
-  population_2010 INT,
-  percent_captivity INT,
-  trend VARCHAR(50),
-  animals_id INT,
-  FOREIGN KEY(animals_id) REFERENCES animals(id)  ON DELETE CASCADE
+   natural_disasters VARCHAR(50),
+   problems VARCHAR(50)
 );
 
 CREATE TABLE region(
@@ -39,18 +21,83 @@ CREATE TABLE region(
 
 CREATE TABLE climate(
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  average_hi_F INT,
+  average_high_F INT,
   average_low_F INT,
   average_precipitation_inches INT,
   region_id INT,
   FOREIGN KEY(region_id) REFERENCES region(id)  ON DELETE CASCADE
 );
 
-CREATE TABLE habitat(
+
+CREATE TABLE animals(
+   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
    common_name VARCHAR(50),
-   natural_disasters VARCHAR(50),
-   problems VARCHAR(50)
+   scientific_name VARCHAR(50),
+   diet VARCHAR(50),
+   average_weight INT,
+   color VARCHAR(50),
+   behavior VARCHAR(50),
+   life_expectancy INT,
+   animal_habitat INT,
+   animal_region INT,
+   FOREIGN KEY(animal_habitat) REFERENCES habitat(id)  ON DELETE CASCADE,
+   FOREIGN KEY(animal_region) REFERENCES region(id)  ON DELETE CASCADE
 );
+
+CREATE TABLE status(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  classification VARCHAR(50),
+  population_current INT,
+  population_2010 INT,
+  num_captivity INT,
+  trend VARCHAR(50),
+  animals_id INT,
+  FOREIGN KEY(animals_id) REFERENCES animals(id)  ON DELETE CASCADE
+);
+
+
+INSERT INTO habitat(common_name, natural_disasters, problems) VALUES
+  ("freshwater", "hurricane", "water pollution"),
+  ("ocean", "hurricane", "water pollution"),
+  ("forest", "forest fires", "deforestation"),
+  ("mountains", "landslides", "habitat destruction"),
+  ("grasslands", "droughts", "poaching"),
+  ("desert", "flash floods", "poaching" )
+;
+
+INSERT INTO region(common_name, gdp_billions, continent, industrialized) VALUES
+  ("Greater Mekong",  757, "Southeast Asia", true),
+  ("Gulf of California", 20540, "United States of America", true),
+  ("Indonesia", 1042, "Southeast Asia", true),
+  ("Borneo and Sumatra", 1042, "Southeast Asia", true),
+  ("Congo Basin", 47, "Central Africa", false),
+  ("Yangtze", 13610, "China", true),
+  ("Galápagos", 108, "South America", true),
+  ("Broadleaf forest", 18800, "Eurasia", true),
+  ("Eastern Himalayas", 29, "Asia", false),
+  ("Coastal East Africa", 88, "Africa", false),
+  ("Central Kalimantan", 1042, "Southeast Asia", true),
+  ("Amur-Heilong", 239, "East Asia", true)
+;
+
+INSERT INTO climate(average_high_F, average_low_F, average_precipitation_inches, region_id) VALUES
+  (89, 74, 1, 1),
+  (75, 61, 15, 2),
+  (93, 80, 200, 3),
+  (95, 79, 157, 4),
+  (77, 53, 47, 5),
+  (90, 50, 43, 6),
+  (84, 69, 2, 7),
+  (60, 37, 58, 8),
+  (60, 17, 6, 9),
+  (97, 82, 40, 10),
+  (89, 60, 103, 11),
+  (73, -14, 75, 12)
+;
+
+
+
+
 
 
 INSERT INTO animals(common_name, scientific_name, diet, average_weight, color, behavior, life_expectancy, animal_habitat, animal_region) VALUES
@@ -113,44 +160,6 @@ INSERT INTO status(classification, population_current, population_2010, num_capt
 ("Critically Endangered", 37, 60, 170, "decreasing", 25)
 ;
 
-INSERT INTO region(common_name, gdp_billions, continent, industrialized) VALUES
-  ("Greater Mekong",  757, "Southeast Asia", true),
-  ("Gulf of California", 20540, "United States of America", true),
-  ("Indonesia", 1042, "Southeast Asia", true),
-  ("Borneo and Sumatra", 1042, "Southeast Asia", true),
-  ("Congo Basin", 47, "Central Africa", false),
-  ("Yangtze", 13610, "China", true),
-  ("Galápagos", 108, "South America", true),
-  ("Broadleaf forest", 18800, "Eurasia", true),
-  ("Eastern Himalayas", 29, "Asia", false),
-  ("Coastal East Africa", 88, "Africa", false),
-  ("Central Kalimantan", 1042, "Southeast Asia", true),
-  ("Amur-Heilong", 239, "East Asia", true)
-;
-
-INSERT INTO climate(average_high_F, average_low_F, average_precipitation_inches, region_id) VALUES
-  (89, 74, 1, 1),
-  (75, 61, 15, 2),
-  (93, 80, 200, 3),
-  (95, 79, 157, 4),
-  (77, 53, 47, 5),
-  (90, 50, 43, 6),
-  (84, 69, 2, 7),
-  (60, 37, 58, 8),
-  (60, 17, 6, 9),
-  (97, 82, 40, 10),
-  (89, 60, 103, 11),
-  (73, -14, 75, 12)
-;
-
-INSERT INTO habitat(common_name, natural_disasters, problems) VALUES
-  ("freshwater", "hurricane", "water pollution"),
-  ("ocean", "hurricane", "water pollution"),
-  ("forest", "forest fires", "deforestation"),
-  ("mountains", "landslides", "habitat destruction"),
-  ("grasslands", "droughts", "poaching"),
-  ("desert", "flash floods", "poaching" )
-;
 
 
 -- Queries
@@ -166,7 +175,7 @@ WHERE classification = "Endangered";
 
 SELECT AVG(population_current), AVG(population_2010)
 FROM status
-WHERE classification = Vulnerable;
+WHERE classification = "Vulnerable";
 
 
 
@@ -182,9 +191,9 @@ ON status.animals_id = animals.id;
 SELECT animals.common_name, region.common_name, region.continent, habitat.common_name
 FROM animals
 JOIN region
-ON animals.animals_region = region.id
+ON animals.animal_region = region.id
 JOIN habitat
-ON animals.animals_habitat = habitat.id;
+ON animals.animal_habitat = habitat.id;
 
 
 
@@ -204,17 +213,17 @@ ORDER BY habitat.common_name ASC;
 
 
 -- 6 status, region gdp, animal name
-SELECT status.classification
-FROM status
-JOIN(
-  SELECT animals.common_name
-  FROM animals
-  JOIN(
-	SELECT region.common_name, region.gdp_billions
-    FROM region
-    )ON animals.animals_region = region.id
-) ON status.animals_id = animals.id
-ORDER BY status.classification;
+-- SELECT status.trend, status.classification
+-- FROM 
+-- (
+--  SELECT animals.common_name, animals.scientific_name
+--  FROM animals
+--  UNION(
+-- 	SELECT region.common_name, region.gdp_billions
+--   FROM region
+--    )
+-- )status
+-- ORDER BY status.classification;
 
 
 
