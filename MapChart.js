@@ -1,5 +1,5 @@
-import React, { memo, useState } from "react";
-import {Button, Modal} from "react-bootstrap"
+import React, { memo, useState, useEffect } from "react";
+import {Modal} from "react-bootstrap"
 
 
 import {
@@ -27,32 +27,22 @@ const highlighted = [
 	"USA",
 	"MYS",
 	"BRN",
-	"CMR",
-	"CAF",
 	"COG",
 	"COD",
-	"GNQ",
-	"GAB",
 	"CHN",
 	"ECU",
 	"NPL",
 	"BTN",
 	"BGD",
 	"IND",
-	"JPN",
-	"PRK",
-	"KOR",
-	"AUS",
-	"GBR",
-	"UKR",
-	"SWE",
-	"ESP",
-	"ROU",
-	"POL",
-	"ITA",
-	"HUN",
-	"DEU",
-	"FRA"
+	"LKA",
+	"SOM",
+	"KEN",
+	"TZA",
+	"MOZ",
+	"ZAF",
+	"MDG",
+	"CAN",
 ];
 
 function generateCircle(deg) {
@@ -63,28 +53,223 @@ function generateCircle(deg) {
 }
 
 const MapChart = ({ setTooltipContent }) => {
+
   	// State for displaying popup
 	const [show, setShow] = useState(false)
-
-  	const handleClose = () => setShow(false);
+  	const handleClose = () => {
+		setPopupCountry("")
+		setShow(false);
+	}
 	const handleShow = () => setShow(true);
-	  
-	// State for popup country
+
+	// State for modal body
+	const [modalBody, setModalBody] = useState("")
+    const initModalBody = (text) => {
+		setModalBody(text)
+    }
+
+	// Get data from server
+    useEffect(() => {
+		getData();
+	});
+
+	// State for server data
+	const [data, setData] = useState([])
+
+    //  Fetch the server data and turn into JSON file
+    const getData = () =>{
+        fetch('http://localhost:4000/sqlCommand')
+        .then(response => response.json())
+		.then(response => {
+			var result = response.data
+			for (var i=0; i<result.length;i++){
+				for (var j=0; j<result[i].length;j++){
+					var obj = result[i][j]
+					var res = Object.entries(obj);
+					result[i][j] = res
+				}
+			}
+			setData(result)
+		})
+		.catch(err => console.log(err))
+    }
+
+	// Function to list the animal details
+	const modalBodyInsertInfo = (animal, popCurrent, pop2010, status) => {
+		return animal + ": (Current Population: " + popCurrent +  ", 2010 Population: " + pop2010 + ", Status: " + status + ")"
+	}
+	
+	// State for popup country and body
 	const [popupCountry, setPopupCountry] = useState("")
-	const handlePopupCountry = (countryName) => setPopupCountry(countryName)
+
+	// Sets the popup contents according to the country clicked
+	const handlePopupCountry = (countryName) => {
+		setPopupCountry(countryName)
+
+		if (countryName === "Cambodia"){
+			initModalBody(
+				<p>
+				<br/>{modalBodyInsertInfo(data[3][0][0][1], data[3][0][1][1], data[3][0][2][1], "Endangered")}
+				</p>
+			)
+		}
+
+		else if (countryName === "Laos"){
+			initModalBody(
+				<p>
+				<br/>{modalBodyInsertInfo(data[3][0][0][1], data[3][0][1][1], data[3][0][2][1], "Endangered")}
+				</p>
+			)
+		}
+
+		else if (countryName === "Myanmar"){
+			initModalBody(
+				<p>
+				<br/>{modalBodyInsertInfo(data[3][0][0][1], data[3][0][1][1], data[3][0][2][1], "Endangered")}
+				</p>
+			)
+		}
+
+		else if (countryName === "Indonesia"){
+			initModalBody(
+				<p>
+				<br/>{modalBodyInsertInfo(data[3][5][0][1], data[3][5][1][1], data[3][5][2][1], "Endangered")}
+				<br/>{modalBodyInsertInfo(data[3][2][0][1], data[3][2][1][1], data[3][2][2][1], "Critically Endangered")}
+				<br/>{modalBodyInsertInfo(data[3][7][0][1], data[3][7][1][1], data[3][7][2][1], "Endangered")}
+				<br/>{modalBodyInsertInfo(data[3][11][0][1], data[3][11][1][1], data[3][11][2][1], "Critically Endangered")}
+				<br/>{modalBodyInsertInfo(data[3][8][0][1], data[3][8][1][1], data[3][8][2][1], "Critically Endangered")}
+            	<br/>{modalBodyInsertInfo(data[3][17][0][1], data[3][17][1][1], data[3][17][2][1], "Critically Endangered")}
+            	<br/>{modalBodyInsertInfo(data[3][16][0][1], data[3][16][1][1], data[3][16][2][1], "Critically Endangered")}
+				</p>
+			)
+		}
+
+		else if (countryName === "Thailand"){
+			initModalBody(
+				<p>
+				<br/>{modalBodyInsertInfo(data[3][0][0][1], data[3][0][1][1], data[3][0][2][1], "Endangered")}
+				</p>
+			)
+		}
+
+		else if (countryName === "Vietnam"){
+			initModalBody(
+				<p>
+				<br/>{modalBodyInsertInfo(data[3][0][0][1], data[3][0][1][1], data[3][0][2][1], "Endangered")}
+				</p>
+			)
+		}
+
+		else if (countryName === "United States of America"){
+			initModalBody(
+				<p>
+				<br/>{modalBodyInsertInfo(data[3][1][0][1], data[3][1][1][1], data[3][1][2][1], "Critically Endangered")}
+				<br/>{modalBodyInsertInfo(data[3][22][0][1], data[3][22][1][1], data[3][22][2][1], "Endangered")}
+				</p>
+			)
+		}
+
+		else if (countryName === "Canada"){
+			initModalBody(
+				<p>
+				<br/>{modalBodyInsertInfo(data[3][22][0][1], data[3][22][1][1], data[3][22][2][1], "Endangered")}
+				</p>
+			)
+		}
+
+		else if (countryName === "Malaysia"){
+			initModalBody(
+				<p>
+				<br/>{modalBodyInsertInfo(data[3][7][0][1], data[3][7][1][1], data[3][7][2][1], "Endangered")}
+				<br/>{modalBodyInsertInfo(data[3][11][0][1], data[3][11][1][1], data[3][11][2][1], "Critically Endangered")}
+				<br/>{modalBodyInsertInfo(data[3][8][0][1], data[3][8][1][1], data[3][8][2][1], "Critically Endangered")}
+           	 	<br/>{modalBodyInsertInfo(data[3][17][0][1], data[3][17][1][1], data[3][17][2][1], "Critically Endangered")}
+				</p>
+			)
+		}
+
+		else if (countryName === "Brunei"){
+			initModalBody(
+				<p>
+				<br/>{modalBodyInsertInfo(data[3][7][0][1], data[3][7][1][1], data[3][7][2][1], "Endangered")}
+				<br/>{modalBodyInsertInfo(data[3][11][0][1], data[3][11][1][1], data[3][11][2][1], "Critically Endangered")}
+				<br/>{modalBodyInsertInfo(data[3][8][0][1], data[3][8][1][1], data[3][8][2][1], "Critically Endangered")}
+            	<br/>{modalBodyInsertInfo(data[3][17][0][1], data[3][17][1][1], data[3][17][2][1], "Critically Endangered")}
+				</p>
+			)
+		}
 
 
+		else if (countryName === "Congo" || countryName === "Dem. Rep. Congo"){
+			initModalBody(
+				<p>
+				<br/>{modalBodyInsertInfo(data[3][4][0][1], data[3][4][1][1], data[3][4][2][1], "Endangered")}
+				<br/>{modalBodyInsertInfo(data[3][19][0][1], data[3][19][1][1], data[3][19][2][1], "Vulnerable")}
+            	<br/>{modalBodyInsertInfo(data[3][18][0][1], data[3][18][1][1], data[3][18][2][1], "Endangered")}
+				</p>
+			)
+		}
 
+		else if (countryName === "Somalia" || countryName === "Kenya" || countryName === "Tanzania" || countryName === "Mozambique" || countryName === "South Africa" || countryName === "Madagascar"){
+			initModalBody(
+				<p>
+				<br/>{modalBodyInsertInfo(data[3][20][0][1], data[3][20][1][1], data[3][20][2][1], "Endangered")}
+				<br/>{modalBodyInsertInfo(data[3][21][0][1], data[3][21][1][1], data[3][21][2][1], "Critically Endangered")}
+            	<br/>{modalBodyInsertInfo(data[3][15][0][1], data[3][15][1][1], data[3][15][2][1], "Endangered")}
+				</p>
+			)
+		}
+		
+		else if (countryName === "China"){
+			initModalBody(
+				<p>
+				<br/>{modalBodyInsertInfo(data[3][0][0][1], data[3][0][1][1], data[3][0][2][1], "Endangered")}
+				<br/>{modalBodyInsertInfo(data[3][9][0][1], data[3][9][1][1], data[3][9][2][1], "Critically Endangered")}
+            	<br/>{modalBodyInsertInfo(data[3][24][0][1], data[3][24][1][1], data[3][24][2][1], "Critically Endangered")}
+            	<br/>{modalBodyInsertInfo(data[3][6][0][1], data[3][6][1][1], data[3][6][2][1], "Vulnerable")}
+            	<br/>{modalBodyInsertInfo(data[3][23][0][1], data[3][23][1][1], data[3][23][2][1], "Endangered")}
+				</p>
+			)
+		}
+
+		else if (countryName === "Ecuador"){
+			initModalBody(
+				<p>
+				<br/>{modalBodyInsertInfo(data[3][10][0][1], data[3][10][1][1], data[3][10][2][1], "Endangered")}
+				</p>
+			)
+		}
+
+		else if (countryName === "Nepal" || countryName === "Bhutan" || countryName === "Bangladesh" || countryName === "India"){
+			initModalBody(
+				<p>
+				<br/>{modalBodyInsertInfo(data[3][3][0][1], data[3][3][1][1], data[3][3][2][1], "Critically Endangered")}
+				<br/>{modalBodyInsertInfo(data[3][13][0][1], data[3][13][1][1], data[3][13][2][1], "Vulnerable")}
+            	<br/>{modalBodyInsertInfo(data[3][14][0][1], data[3][14][1][1], data[3][14][2][1], "Endangered")}
+				</p>
+			)
+		}
+		
+		else if (countryName === "Sri Lanka"){
+			initModalBody(
+				<p><br/>{modalBodyInsertInfo(data[3][12][0][1], data[3][12][1][1], data[3][12][2][1], "Endangered")}</p>
+			)
+		}
+
+		else{
+			initModalBody("This country has no data yet.")
+		}	
+	}
 
   	// Render Function
     return (
 	<>
-		<Modal show={show} onHide={handleClose}>
+		<Modal show={show} onHide={handleClose} size="lg">
 			<Modal.Header closeButton>
 				<Modal.Title>{popupCountry}</Modal.Title>
 			</Modal.Header>
 
-			<Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+			<Modal.Body>{modalBody}</Modal.Body>
 		</Modal>
 
 		<ComposableMap data-tip="" projectionConfig={{ scale: 145 }}>
@@ -98,8 +283,8 @@ const MapChart = ({ setTooltipContent }) => {
         			background="#E9E2C1"
         			orientation={["diagonal"]}
       			/>
-				<Sphere stroke="#717273 " />
-      			<Graticule stroke="#717273 " />
+				<Sphere stroke="#FFFFFF" fill="#99CFED"/>
+      			<Graticule stroke="#FFFFFF" fill="#99CFED"/>
 				<Geographies geography={geoUrl}>
 					{({ geographies }) =>
 					geographies.map(geo => {
@@ -116,14 +301,14 @@ const MapChart = ({ setTooltipContent }) => {
 						// Show popup
 						onClick={() => {
 							const { NAME } = geo.properties;
-							handlePopupCountry(NAME)	// Init Popup header with the country name
+							handlePopupCountry(NAME)	// Init Popup header with the country name and popup body
 							handleShow()				// Display popup
 						}}
 
 						// Hover
 						onMouseEnter={() => {
 							const { NAME } = geo.properties;
-							setTooltipContent("Hovering over " + NAME);
+							setTooltipContent(NAME);
 						}}
 
 						// Unhover
