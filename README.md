@@ -3,7 +3,7 @@ An interactive web app which showcases some of the endangered animals in the wor
 
 ![Image](Screenshot.JPG)
 
-Sources:
+Sources: \
 https://www.iucnredlist.org/ \
 https://www.worldwildlife.org/species/directory \
-http://www.projectarkfoundation.com/ \
+http://www.projectarkfoundation.com/ 
