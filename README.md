@@ -16,7 +16,7 @@ When a user clicks a country, a popup box appears. The popup box contains inform
 
 ![Image](ScreenshotOnClickCountry.jpg) \
 
-Sources: \
+# Sources
 https://www.iucnredlist.org/ \
 https://www.worldwildlife.org/species/directory \
 http://www.projectarkfoundation.com/ 
