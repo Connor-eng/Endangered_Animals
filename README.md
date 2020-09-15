@@ -6,15 +6,15 @@ Connor Eng ([Connor-eng](https://github.com/Connor-eng)) and Jason Cheung ([jr-c
 
 # Screenshots
 
-![Image](Screenshot.JPG) \
+![Image](Screenshot.JPG) 
 
 When a user hovers over a country, the country name appears.
 
-![Image](ScreenshotHovering.jpg) \
+![Image](ScreenshotHovering.jpg) 
 
 When a user clicks a country, a popup box appears. The popup box contains information about endangered animals pertaining to the country.
 
-![Image](ScreenshotOnClickCountry.jpg) \
+![Image](ScreenshotOnClickCountry.jpg) 
 
 # Sources
 https://www.iucnredlist.org/ \
