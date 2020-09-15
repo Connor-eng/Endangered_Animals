@@ -5,11 +5,11 @@ An interactive web app which showcases some of the endangered animals in the wor
 
 When a user hovers over a country, the country name appears.
 
-![Image](ScreenshotHovering.JPG) \\
+![Image](ScreenshotHovering.jpg) \\
 
 When a user clicks a country, a popup box appears. The popup box contains information about endangered animals pertaining to the country.
 
-![Image](ScreenshotOnClickCountry.JPG) \\
+![Image](ScreenshotOnClickCountry.jpg) \\
 
 Sources: \
 https://www.iucnredlist.org/ \
